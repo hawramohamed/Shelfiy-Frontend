@@ -1,16 +1,18 @@
-# React + Vite
+# User Stories
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+- As an admin, I want to add new products with details (name, category, price, stock quantity, supplier) so that inventory records remain accurate.
+- As an admin, I want to edit and delete products so that outdated or incorrect items are removed from the system.
+- As an admin, I want to link products to suppliers so that I can track where each item comes from.
+- As an admin, I want to add supplier details (name, contact info, address) so that vendor information is stored for future reference.
+- As an admin, I want to view all products provided by a supplier so that I can evaluate supplier performance.
+- As a staff user, I want to update product stock quantities after sales or restocking so that inventory levels stay current.
+- As a staff user, I want to search and filter products so that I can quickly find items in the catalog.
+- As a staff user, I want to view supplier details linked to products so that I know who provides each item.
+- As a staff user, I want to update supplier contact information so that communication with vendors remains accurate.
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ERD
+<img src="./assets/FinalGA.drawio.png"/>
 
-## React Compiler
+## WireFrames
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
