@@ -15,4 +15,5 @@
 <img src="./assets/FinalGA.drawio.png"/>
 
 ## WireFrames
+<img src="./assets/WireframesFinal.png"/>
 
