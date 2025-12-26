@@ -32,7 +32,7 @@ function SupplierList() {
 
   return (
     <div>
-      <h2>Suppliers Index</h2>
+      <h2>Suppliers</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
       <Link to="/suppliers/new">Add Supplier</Link>
       <ul>
