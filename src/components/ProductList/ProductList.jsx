@@ -40,7 +40,7 @@ function ProductList() {
 
   return (
     <div className="product-list">
-      <h1>Product List</h1>
+      <h1>Product</h1>
 
       {user && (
         <Link to="/products/new">

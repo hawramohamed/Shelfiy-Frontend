@@ -40,13 +40,7 @@ function SupplierList() {
 
   return (
     <div className="supplier-list">
-      <h1>Supplier List</h1>
-
-      {user && (
-        <Link to={`/products/${user._id}/suppliers/new`}>
-          <button>Create New Supplier</button>
-        </Link>
-      )}
+      <h1>Supplier</h1>
 
       {suppliers.length === 0 ? (
         <p>No suppliers found.</p>
