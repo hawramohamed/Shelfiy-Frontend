@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router'; // Import React Router
+import { Routes, Route } from 'react-router-dom';
 
 import NavBar from './components/NavBar/NavBar';
 import SignUpForm from './components/SignUpForm/SignUpForm';
@@ -26,7 +26,7 @@ const App = () => {
             <Route path="/" element={<Dashboard />} />
 
             {/* Products */}
-            <Route path="/products" element={<ProductList userId={user._id} />} />
+            <Route path="/products" element={<ProductList />} />
             <Route path="/products/new" element={<ProductForm userId={user._id} />} />
             <Route path="/products/:productId/edit" element={<ProductForm userId={user._id} />} />
 

@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/users`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/products`;
 
 const getAllProducts = async () => {
   try {
@@ -22,10 +22,9 @@ const addProduct = async (userId, productData) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify(productData)
+      body: JSON.stringify({...productData, suppliers: [] })
     });
     const data = await res.json();
-
     if (data.err) throw new Error(data.err);
     return data;
   } catch (err) {

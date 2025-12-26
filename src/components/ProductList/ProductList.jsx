@@ -1,48 +1,63 @@
 import { useEffect, useState, useContext } from 'react';
-import { getAllProducts, deleteProduct } from '../../services/productService';
-import { UserContext } from '../../contexts/UserContext';
-import { Link } from 'react-router';
+import { UserContext } from '../contexts/UserContext';
 
 function ProductList() {
   const { user } = useContext(UserContext);
   const [products, setProducts] = useState([]);
-  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const data = await getAllProducts();
+        const res = await fetch('/api/products', {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        });
+        if (!res.ok) throw new Error('Failed to fetch products');
+        const data = await res.json();
         setProducts(data);
       } catch (err) {
-        setError("Failed to load products");
+        console.error('Error fetching products:', err);
+      } finally {
+        setLoading(false);
       }
     };
-    if (user) fetchProducts();
-  }, [user]);
 
-  const handleDelete = async (id) => {
-    try {
-      await deleteProduct(user._id, id);
-      setProducts(products.filter(p => p._id !== id));
-    } catch (err) {
-      setError("Failed to delete product");
-    }
-  };
+    fetchProducts();
+  }, []);
+
+  if (loading) return <p>Loading products...</p>;
 
   return (
-    <div>
-      <h2>Products</h2>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <Link to="/products/new">Add Product</Link>
-      <ul>
-        {products.map(p => (
-          <li key={p._id}>
-            {p.name} — ${p.price} — {p.stock} in stock
-            <Link to={`/products/${p._id}/edit`}>Edit</Link>
-            <button onClick={() => handleDelete(p._id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
+    <div className="product-list">
+      <h1>Product List</h1>
+      {products.length === 0 ? (
+        <p>No products found.</p>
+      ) : (
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Description</th>
+              <th>Suppliers Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((p) => (
+              <tr key={p._id}>
+                <td>{p.name}</td>
+                <td>{p.price}</td>
+                <td>{p.stock}</td>
+                <td>{p.description}</td>
+                <td>{p.suppliers ? p.suppliers.length : 0}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 }

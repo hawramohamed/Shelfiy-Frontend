@@ -33,11 +33,13 @@ function ProductForm({ userId }) {
       if (productId) {
         await updateProduct(userId, productId, formData);
       } else {
-        await addProduct(userId, formData);
+        await addProduct(userId, {...formData, suppliers: []});
       }
       navigate("/products");
     } catch (err) {
-      setError("Failed to save product");
+      console.error("Save failed:", err);
+      setError(err.message);
+
     }
   };
 
