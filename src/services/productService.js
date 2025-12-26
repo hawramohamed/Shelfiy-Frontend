@@ -22,7 +22,7 @@ const addProduct = async (userId, productData) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify({ ...productData, suppliers: [] })
+      body: JSON.stringify(productData)
     });
     const data = await res.json();
     if (data.err) throw new Error(data.err);

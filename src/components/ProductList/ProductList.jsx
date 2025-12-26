@@ -63,6 +63,11 @@ function ProductList() {
                     ? p.suppliers.map(s => s.name).join(', ')
                     : 'No suppliers'}
                 </td>
+                <td>
+                     <Link to={`/products/${p._id}/edit`}>
+                     <button>Edit</button>
+                     </Link>
+                </td>
               </tr>
             ))}
           </tbody>
