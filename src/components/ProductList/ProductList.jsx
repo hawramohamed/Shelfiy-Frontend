@@ -48,7 +48,7 @@ function ProductList() {
               <th>Price</th>
               <th>Stock</th>
               <th>Description</th>
-              <th>Suppliers Count</th>
+              <th>Suppliers</th>
             </tr>
           </thead>
           <tbody>
@@ -58,7 +58,11 @@ function ProductList() {
                 <td>{p.price}</td>
                 <td>{p.stock}</td>
                 <td>{p.description}</td>
-                <td>{p.suppliers ? p.suppliers.length : 0}</td>
+                <td>
+                    {p.suppliers && p.suppliers.length > 0
+                    ? p.suppliers.map(s => s.name).join(', ')
+                    : 'No suppliers'}
+                </td>
               </tr>
             ))}
           </tbody>
