@@ -1,25 +1,22 @@
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { getAllProducts } from '../../services/productService';
 
 function ProductList() {
   const { user } = useContext(UserContext);
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await fetch('/api/products', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        if (!res.ok) throw new Error('Failed to fetch products');
-        const data = await res.json();
+        const data = await getAllProducts();
         setProducts(data);
       } catch (err) {
-        console.error('Error fetching products:', err);
+        console.error("Error fetching products:", err);
+        setError("Failed to load products");
       } finally {
         setLoading(false);
       }
@@ -29,12 +26,14 @@ function ProductList() {
   }, []);
 
   if (loading) return <p>Loading products...</p>;
+  if (error) return <p style={{ color: "red" }}>{error}</p>;
 
   return (
     <div className="product-list">
       <h1>Product List</h1>
+
       {user && (
-        <Link to={`/products/new`}>
+        <Link to="/products/new">
           <button>Create New Product</button>
         </Link>
       )}

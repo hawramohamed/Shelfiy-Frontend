@@ -16,7 +16,7 @@ const getAllProducts = async () => {
 
 const addProduct = async (userId, productData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/new`, {
+    const res = await fetch(`${BASE_URL}/products/${userId}/new`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ const addProduct = async (userId, productData) => {
 
 const getProduct = async (userId, productId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}`, {
+    const res = await fetch(`${BASE_URL}/products/${userId}/${productId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -49,7 +49,7 @@ const getProduct = async (userId, productId) => {
 
 const updateProduct = async (userId, productId, productData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}`, {
+    const res = await fetch(`${BASE_URL}/products/${userId}/${productId}`, {
       method: 'PUT',
       headers: { 
         'Content-Type': 'application/json',
@@ -68,7 +68,7 @@ const updateProduct = async (userId, productId, productData) => {
 
 const deleteProduct = async (userId, productId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}`, {
+    const res = await fetch(`${BASE_URL}/products/${userId}/${productId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
