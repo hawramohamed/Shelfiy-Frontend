@@ -1,12 +1,28 @@
-import { useState } from 'react';
-import { addSupplier, updateSupplier } from '../../services/supplierService';
+// src/components/Suppliers/SupplierForm.jsx
+import { useState, useEffect } from 'react';
+import { addSupplier, updateSupplier, getSupplier } from '../../services/supplierService';
 import { useParams, useNavigate } from 'react-router';
 
-function SupplierForm({ userId, productId }) {
-  const { supplierId } = useParams();
+function SupplierForm({ userId }) {
+  const { productId, supplierId } = useParams(); // grab IDs from URL
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ name: "", contact: "", address: "" });
   const [error, setError] = useState("");
+
+  // If editing, fetch supplier details to prefill form
+  useEffect(() => {
+    const fetchSupplier = async () => {
+      try {
+        if (supplierId) {
+          const existing = await getSupplier(userId, productId, supplierId);
+          setFormData(existing);
+        }
+      } catch (err) {
+        setError("Failed to load supplier");
+      }
+    };
+    fetchSupplier();
+  }, [userId, productId, supplierId]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +36,7 @@ function SupplierForm({ userId, productId }) {
       } else {
         await addSupplier(userId, productId, formData);
       }
-      navigate("/suppliers");
+      navigate(`/products/${productId}/suppliers`);
     } catch (err) {
       setError("Failed to save supplier");
     }
