@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
-import { getAllProducts } from '../../services/productService';
+import { getAllProducts, deleteProduct } from '../../services/productService';
 
 function ProductList() {
   const { user } = useContext(UserContext);
@@ -24,6 +24,16 @@ function ProductList() {
 
     fetchProducts();
   }, []);
+
+  const handleDelete = async (productId) => {
+    try {
+      await deleteProduct(user._id, productId);
+      setProducts(products.filter(p => p._id !== productId)); // ✅ update UI
+    } catch (err) {
+      console.error("Delete failed:", err);
+      setError("Failed to delete product");
+    }
+  };
 
   if (loading) return <p>Loading products...</p>;
   if (error) return <p style={{ color: "red" }}>{error}</p>;
@@ -49,6 +59,7 @@ function ProductList() {
               <th>Stock</th>
               <th>Description</th>
               <th>Suppliers</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -59,14 +70,15 @@ function ProductList() {
                 <td>{p.stock}</td>
                 <td>{p.description}</td>
                 <td>
-                    {p.suppliers && p.suppliers.length > 0
+                  {p.suppliers && p.suppliers.length > 0
                     ? p.suppliers.map(s => s.name).join(', ')
                     : 'No suppliers'}
                 </td>
                 <td>
-                     <Link to={`/products/${p._id}/edit`}>
-                     <button>Edit</button>
-                     </Link>
+                  <Link to={`/products/${p._id}/edit`}>
+                    <button>Edit</button>
+                  </Link>
+                  <button onClick={() => handleDelete(p._id)}>Delete</button>
                 </td>
               </tr>
             ))}

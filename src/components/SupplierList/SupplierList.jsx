@@ -10,7 +10,7 @@ function SupplierList() {
   useEffect(() => {
     const fetchSuppliers = async () => {
       try {
-        const res = await fetch('/api/suppliers', {
+        const res = await fetch('/suppliers', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
