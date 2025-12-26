@@ -59,33 +59,20 @@ function ProductForm({ userId }) {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    if (productId) {
-      // Editing an existing product
-      if (user.role === "admin" || user.role === "manager") {
+    e.preventDefault();
+    try {
+      if (productId) {
         await updateProduct(userId, productId, formData);
       } else {
-        setError("You do not have permission to edit products");
-        return;
-      }
-    } else {
-      // Adding a new product
-      if (user.role === "admin") {
         await addProduct(userId, formData);
-      } else {
-        setError("You do not have permission to add products");
-        return;
       }
+      navigate("/products");
+    } catch (err) {
+      console.error("Save failed:", err);
+      setError(err.message);
     }
+  };
 
-    
-    navigate("/products");
-  } catch (err) {
-    console.error("Save failed:", err);
-    setError("Failed to save product");
-  }
-};
 
   return (
     <>

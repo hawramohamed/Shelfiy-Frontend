@@ -74,14 +74,15 @@ function ProductList() {
                     ? p.suppliers.map(s => s.name).join(', ')
                     : 'No suppliers'}
                 </td>
+                {user.role === "admin" && (
                 <td>
                   <Link to={`/products/${p._id}/edit`}>
                     <button>Edit</button>
                   </Link>
-                  {user.role === "admin" && (
                   <button onClick={() => handleDelete(p._id)}>Delete</button>
-                  )}
+    
                 </td>
+                )}
               </tr>
             ))}
           </tbody>
