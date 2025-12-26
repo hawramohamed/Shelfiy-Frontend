@@ -33,7 +33,7 @@ const App = () => {
             {/* Suppliers */}
             <Route path="/suppliers" element={<SupplierList userId={user._id} />} />
             <Route path="/suppliers/new" element={<SupplierForm userId={user._id} />} />
-            <Route path="/suppliers/:supplierId/edit" element={<SupplierForm userId={user._id} />} />
+            <Route path="/products/:productId/suppliers/:supplierId/edit" element={<SupplierForm userId={user._id} />} />
 
           </>
             :

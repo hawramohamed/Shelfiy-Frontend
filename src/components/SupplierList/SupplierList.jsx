@@ -56,19 +56,19 @@ function SupplierList() {
           </thead>
           <tbody>
             {suppliers.map((s) => (
-              <tr key={s._id}>
-                <td>{s.name}</td>
-                <td>{s.contact}</td>
-                <td>{s.address}</td>
-                <td>
-                  <Link to={`/suppliers/${s._id}/edit`}>
-                    <button>Edit</button>
-                  </Link>
-                  <button onClick={() => handleDelete(s._id, s.productId)}>Delete</button>
-                </td>
-              </tr>
+                <tr key={s._id}>
+                    <td>{s.name}</td>
+                    <td>{s.contact}</td>
+                    <td>{s.address}</td>
+                    <td>
+                        <Link to={`/products/${s.productId}/suppliers/${s._id}/edit`}>
+                            <button>Edit</button>
+                        </Link>
+                        <button onClick={() => handleDelete(s.userId, s.productId, s._id)}>Delete</button>
+                    </td>
+                </tr>
             ))}
-          </tbody>
+            </tbody>
         </table>
       )}
     </div>

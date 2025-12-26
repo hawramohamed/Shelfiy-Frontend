@@ -1,4 +1,3 @@
-// src/components/NavBar/NavBar.jsx
 import { useContext } from 'react';
 import { Link, useNavigate } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';

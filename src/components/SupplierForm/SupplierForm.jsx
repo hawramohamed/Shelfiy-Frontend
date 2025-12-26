@@ -1,4 +1,3 @@
-// src/components/Suppliers/SupplierForm.jsx
 import { useState, useEffect } from 'react';
 import { addSupplier, updateSupplier, getSupplier } from '../../services/supplierService';
 import { useParams, useNavigate } from 'react-router';
@@ -36,7 +35,7 @@ function SupplierForm({ userId }) {
       } else {
         await addSupplier(userId, productId, formData);
       }
-      navigate(`/products/${productId}/suppliers`);
+      navigate(`/suppliers`);
     } catch (err) {
       setError("Failed to save supplier");
     }

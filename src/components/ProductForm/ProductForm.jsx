@@ -5,11 +5,11 @@ import { useParams, useNavigate } from 'react-router';
 function ProductForm({ userId }) {
   const { productId } = useParams();
   const navigate = useNavigate();
-
+    
   const [formData, setFormData] = useState({
     name: "",
-    price: "",   // ✅ empty string so placeholder shows
-    stock: "",   // ✅ empty string so placeholder shows
+    price: "",  
+    stock: "",   
     description: "",
     suppliers: []
   });
@@ -40,12 +40,12 @@ function ProductForm({ userId }) {
   };
 
   const addSupplierToList = () => {
-    if (!supplierInput.name) return; // require name
+    if (!supplierInput.name) return;
     setFormData({
       ...formData,
       suppliers: [...formData.suppliers, supplierInput]
     });
-    setSupplierInput({ name: "", contact: "", address: "" }); // reset input
+    setSupplierInput({ name: "", contact: "", address: "" });
   };
 
   const removeSupplier = (idx) => {
