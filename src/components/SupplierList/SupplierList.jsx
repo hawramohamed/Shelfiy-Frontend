@@ -1,13 +1,13 @@
+// src/components/Suppliers/SupplierList.jsx
 import { useEffect, useState, useContext } from 'react';
 import { getAllSuppliers, deleteSupplier } from '../../services/supplierService';
 import { UserContext } from '../../contexts/UserContext';
-import SupplierForm from '../SupplierForm/SupplierForm';
+import { Link } from 'react-router';
 
-function SupplierList({ userId, productId }) {
+function SupplierList() {
   const { user } = useContext(UserContext);
   const [suppliers, setSuppliers] = useState([]);
   const [error, setError] = useState("");
-  const [editingSupplier, setEditingSupplier] = useState(null);
 
   useEffect(() => {
     const fetchSuppliers = async () => {
@@ -21,44 +21,29 @@ function SupplierList({ userId, productId }) {
     if (user) fetchSuppliers();
   }, [user]);
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (supplier) => {
     try {
-      await deleteSupplier(userId, productId, id);
-      setSuppliers(suppliers.filter(s => s._id !== id));
+      await deleteSupplier(supplier.userId, supplier.productId, supplier._id);
+      setSuppliers(suppliers.filter(s => s._id !== supplier._id));
     } catch (err) {
       setError("Failed to delete supplier");
     }
   };
 
-  const handleSuccess = (supplier) => {
-    if (editingSupplier) {
-      setSuppliers(suppliers.map(s => s._id === supplier._id ? supplier : s));
-      setEditingSupplier(null);
-    } else {
-      setSuppliers([...suppliers, supplier]);
-    }
-  };
-
   return (
     <div>
-      <h3>Suppliers</h3>
+      <h2>Suppliers Index</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
+      <Link to="/suppliers/new">Add Supplier</Link>
       <ul>
         {suppliers.map(s => (
           <li key={s._id}>
             {s.name} — {s.contact} — {s.address}
-            <button onClick={() => setEditingSupplier(s)}>Edit</button>
-            <button onClick={() => handleDelete(s._id)}>Delete</button>
+            <Link to={`/suppliers/${s._id}/edit`}>Edit</Link>
+            <button onClick={() => handleDelete(s)}>Delete</button>
           </li>
         ))}
       </ul>
-      <h4>{editingSupplier ? "Edit Supplier" : "Add Supplier"}</h4>
-      <SupplierForm
-        userId={userId}
-        productId={productId}
-        supplier={editingSupplier}
-        onSuccess={handleSuccess}
-      />
     </div>
   );
 }
