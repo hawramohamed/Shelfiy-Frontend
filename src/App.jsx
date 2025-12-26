@@ -6,6 +6,7 @@ import SignInForm from './components/SignInForm/SignInForm';
 import Landing from './components/Landing/Landing';
 import Dashboard from './components/Dashboard/Dashboard';
 import ProductList from './components/ProductList/ProductList';
+import SupplierList from './components/SupplierList/SupplierList';
 import { useContext } from 'react';
 import { UserContext } from './contexts/UserContext';
 
@@ -22,6 +23,7 @@ const App = () => {
           <>
             <Route path='/' element={<Dashboard/>}/>
             <Route path='/products' element={<ProductList />}/>
+            <Route path='/products/:productId/suppliers' element={<SupplierList />}/>
           </>
             :
             <Route path='/' element={<Landing/>}/>
