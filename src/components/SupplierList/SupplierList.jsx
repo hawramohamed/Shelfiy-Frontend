@@ -64,7 +64,10 @@ function SupplierList() {
                         <Link to={`/products/${s.productId}/suppliers/${s._id}/edit`}>
                             <button>Edit</button>
                         </Link>
-                        <button onClick={() => handleDelete(s.userId, s.productId, s._id)}>Delete</button>
+                        {user.role === "admin" && (
+                            <button onClick={() => handleDelete(s.userId, s.productId, s._id)}>Delete</button>
+                        )}
+
                     </td>
                 </tr>
             ))}

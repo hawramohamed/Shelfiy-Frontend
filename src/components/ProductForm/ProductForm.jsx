@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { addProduct, updateProduct, getProduct } from '../../services/productService';
 import { useParams, useNavigate } from 'react-router';
+import { UserContext } from '../../contexts/UserContext';
 
 function ProductForm({ userId }) {
+
   const { productId } = useParams();
+  const {user} = useContext(UserContext);
   const navigate = useNavigate();
     
   const [formData, setFormData] = useState({
@@ -56,19 +59,33 @@ function ProductForm({ userId }) {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (productId) {
+  e.preventDefault();
+  try {
+    if (productId) {
+      // Editing an existing product
+      if (user.role === "admin" || user.role === "manager") {
         await updateProduct(userId, productId, formData);
       } else {
-        await addProduct(userId, formData);
+        setError("You do not have permission to edit products");
+        return;
       }
-      navigate("/products");
-    } catch (err) {
-      console.error("Save failed:", err);
-      setError(err.message);
+    } else {
+      // Adding a new product
+      if (user.role === "admin") {
+        await addProduct(userId, formData);
+      } else {
+        setError("You do not have permission to add products");
+        return;
+      }
     }
-  };
+
+    
+    navigate("/products");
+  } catch (err) {
+    console.error("Save failed:", err);
+    setError("Failed to save product");
+  }
+};
 
   return (
     <>

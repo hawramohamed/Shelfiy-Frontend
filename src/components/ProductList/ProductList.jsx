@@ -42,7 +42,7 @@ function ProductList() {
     <div className="product-list">
       <h1>Product</h1>
 
-      {user && (
+      {user.role === "admin" && (
         <Link to="/products/new">
           <button>Create New Product</button>
         </Link>
@@ -78,7 +78,9 @@ function ProductList() {
                   <Link to={`/products/${p._id}/edit`}>
                     <button>Edit</button>
                   </Link>
+                  {user.role === "admin" && (
                   <button onClick={() => handleDelete(p._id)}>Delete</button>
+                  )}
                 </td>
               </tr>
             ))}
