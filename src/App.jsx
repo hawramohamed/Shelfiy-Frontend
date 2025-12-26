@@ -31,9 +31,9 @@ const App = () => {
             <Route path="/products/:productId/edit" element={<ProductForm userId={user._id} />} />
 
             {/* Suppliers */}
-            <Route path="/products/:productId/suppliers" element={<SupplierList userId={user._id} />} />
-            <Route path="/products/:productId/suppliers/new" element={<SupplierForm userId={user._id} />} />
-            <Route path="/products/:productId/suppliers/:supplierId/edit" element={<SupplierForm userId={user._id} />} />
+            <Route path="/suppliers" element={<SupplierList userId={user._id} />} />
+            <Route path="/suppliers/new" element={<SupplierForm userId={user._id} />} />
+            <Route path="/suppliers/:supplierId/edit" element={<SupplierForm userId={user._id} />} />
 
             {/* Profile */}
             <Route path="/profile" element={<h1>{user.username}</h1>} />
