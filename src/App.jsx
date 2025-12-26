@@ -1,6 +1,6 @@
 // src/App.jsx
 
-import { Routes, Route } from 'react-router-dom'; // Import React Router
+import { Routes, Route } from 'react-router'; // Import React Router
 
 import NavBar from './components/NavBar/NavBar';
 // Import the SignUpForm component
