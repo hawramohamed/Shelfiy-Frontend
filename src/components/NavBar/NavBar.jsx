@@ -1,19 +1,16 @@
-
+// src/components/NavBar/NavBar.jsx
 import { useContext } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router';
-
-
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
 
-const NavBar = () => {
+function NavBar() {
   const { user, setUser } = useContext(UserContext);
+  const navigate = useNavigate();
 
-   const handleSignOut = () => {
-    // Clear the token from localStorage
+  const handleSignOut = () => {
     localStorage.removeItem('token');
-    // Clear the user state
     setUser(null);
-    Navigate('/');
+    navigate('/');
   };
 
   return (
@@ -35,7 +32,6 @@ const NavBar = () => {
       )}
     </nav>
   );
-};
+}
 
 export default NavBar;
-
