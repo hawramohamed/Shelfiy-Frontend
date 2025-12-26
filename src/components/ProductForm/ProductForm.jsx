@@ -1,11 +1,27 @@
-import { useState } from 'react';
-import { addProduct, updateProduct } from '../../services/productService';
+import { useState, useEffect } from 'react';
+import { addProduct, updateProduct, getProduct } from '../../services/productService';
+import { useParams, useNavigate } from 'react-router';
 
-function ProductForm({ userId, product, onSuccess }) {
-  const [formData, setFormData] = useState(
-    product || { name: "", price: 0, stock: 0, description: "" }
-  );
+function ProductForm({ userId }) {
+  const { productId } = useParams(); // grab productId from URL
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ name: "", price: 0, stock: 0, description: "" });
   const [error, setError] = useState("");
+
+  // If editing, fetch product details to prefill form
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        if (productId) {
+          const existing = await getProduct(userId, productId);
+          setFormData(existing);
+        }
+      } catch (err) {
+        setError("Failed to load product");
+      }
+    };
+    fetchProduct();
+  }, [userId, productId]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -14,14 +30,12 @@ function ProductForm({ userId, product, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (product) {
-        const updated = await updateProduct(userId, product._id, formData);
-        onSuccess(updated);
+      if (productId) {
+        await updateProduct(userId, productId, formData);
       } else {
-        const created = await addProduct(userId, formData);
-        onSuccess(created);
+        await addProduct(userId, formData);
       }
-      setFormData({ name: "", price: 0, stock: 0, description: "" });
+      navigate("/products");
     } catch (err) {
       setError("Failed to save product");
     }
@@ -59,7 +73,7 @@ function ProductForm({ userId, product, onSuccess }) {
         value={formData.description}
         onChange={handleChange}
       />
-      <button type="submit">{product ? "Update Product" : "Add Product"}</button>
+      <button type="submit">{productId ? "Update Product" : "Add Product"}</button>
     </form>
   );
 }
