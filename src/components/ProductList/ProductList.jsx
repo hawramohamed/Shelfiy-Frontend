@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { getAllProducts, deleteProduct } from '../../services/productService';
 import { UserContext } from '../../contexts/UserContext';
-import ProductForm from './ProductForm';
+import ProductForm from '../ProductForm/ProductForm';
 
 function ProductList({ userId }) {
   const { user } = useContext(UserContext);

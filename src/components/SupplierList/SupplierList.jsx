@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from 'react';
 import { getAllSuppliers, deleteSupplier } from '../../services/supplierService';
 import { UserContext } from '../../contexts/UserContext';
-import SupplierForm from './SupplierForm';
+import SupplierForm from '../SupplierForm/SupplierForm';
 
 function SupplierList({ userId, productId }) {
   const { user } = useContext(UserContext);
