@@ -1,8 +1,8 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/products`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`;
 
 const getAllProducts = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/`, {
+    const res = await fetch(`${BASE_URL}/products`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -16,7 +16,7 @@ const getAllProducts = async () => {
 
 const addProduct = async (userId, productData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/new`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/new`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -36,7 +36,7 @@ const addProduct = async (userId, productData) => {
 
 const getProduct = async (userId, productId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/${productId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -48,23 +48,23 @@ const getProduct = async (userId, productId) => {
   }
 };
 
-const editProduct = async (userId, productId) => {
-  try {
-    const res = await fetch(`${BASE_URL}/${userId}/${productId}/edit`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-    });
-    const data = await res.json();
-    if (data.err) throw new Error(data.err);
-    return data;
-  } catch (err) {
-    console.error("Error editing product:", err);
-    throw err;
-  }
-};
+// const editProduct = async (userId, productId) => {
+//   try {
+//     const res = await fetch(`${BASE_URL}/${userId}/${productId}/edit`, {
+//       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+//     });
+//     const data = await res.json();
+//     if (data.err) throw new Error(data.err);
+//     return data;
+//   } catch (err) {
+//     console.error("Error editing product:", err);
+//     throw err;
+//   }
+// };
 
 const updateProduct = async (userId, productId, productData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/${productId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}`, {
       method: 'PUT',
       headers: { 
         'Content-Type': 'application/json',
@@ -83,7 +83,7 @@ const updateProduct = async (userId, productId, productData) => {
 
 const deleteProduct = async (userId, productId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/${productId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });

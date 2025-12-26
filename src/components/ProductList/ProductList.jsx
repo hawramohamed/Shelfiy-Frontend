@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
-import { UserContext } from '../contexts/UserContext';
+import { UserContext } from '../../contexts/UserContext';
+import {Link} from 'react-router-dom';
 
 function ProductList() {
   const { user } = useContext(UserContext);
@@ -32,6 +33,12 @@ function ProductList() {
   return (
     <div className="product-list">
       <h1>Product List</h1>
+      {user && (
+        <Link to={`/products/new`}>
+          <button>Create New Product</button>
+        </Link>
+      )}
+
       {products.length === 0 ? (
         <p>No products found.</p>
       ) : (
