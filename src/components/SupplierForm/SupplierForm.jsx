@@ -1,10 +1,11 @@
 import { useState } from 'react';
 import { addSupplier, updateSupplier } from '../../services/supplierService';
+import { useParams, useNavigate } from 'react-router';
 
-function SupplierForm({ userId, productId, supplier, onSuccess }) {
-  const [formData, setFormData] = useState(
-    supplier || { name: "", contact: "", address: "" }
-  );
+function SupplierForm({ userId, productId }) {
+  const { supplierId } = useParams();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({ name: "", contact: "", address: "" });
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
@@ -14,14 +15,12 @@ function SupplierForm({ userId, productId, supplier, onSuccess }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (supplier) {
-        const updated = await updateSupplier(userId, productId, supplier._id, formData);
-        onSuccess(updated);
+      if (supplierId) {
+        await updateSupplier(userId, productId, supplierId, formData);
       } else {
-        const created = await addSupplier(userId, productId, formData);
-        onSuccess(created);
+        await addSupplier(userId, productId, formData);
       }
-      setFormData({ name: "", contact: "", address: "" });
+      navigate("/suppliers");
     } catch (err) {
       setError("Failed to save supplier");
     }
@@ -50,7 +49,7 @@ function SupplierForm({ userId, productId, supplier, onSuccess }) {
         value={formData.address}
         onChange={handleChange}
       />
-      <button type="submit">{supplier ? "Update Supplier" : "Add Supplier"}</button>
+      <button type="submit">{supplierId ? "Update Supplier" : "Add Supplier"}</button>
     </form>
   );
 }
