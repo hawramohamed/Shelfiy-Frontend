@@ -35,8 +35,6 @@ const App = () => {
             <Route path="/suppliers/new" element={<SupplierForm userId={user._id} />} />
             <Route path="/suppliers/:supplierId/edit" element={<SupplierForm userId={user._id} />} />
 
-            {/* Profile */}
-            <Route path="/profile" element={<h1>{user.username}</h1>} />
           </>
             :
             <Route path='/' element={<Landing/>}/>

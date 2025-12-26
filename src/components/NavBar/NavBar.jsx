@@ -21,7 +21,6 @@ function NavBar() {
           <li><Link to="/">Dashboard</Link></li>
           <li><Link to="/products">Products</Link></li>
           <li><Link to= "/suppliers">Suppliers</Link></li>
-          <li><Link to="/profile">Profile</Link></li>
           <li><button onClick={handleSignOut}>Sign Out</button></li>
         </ul>
       ) : (
