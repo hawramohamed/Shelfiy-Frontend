@@ -1,4 +1,5 @@
-// Import the useContext hook
+import './SignUp.css'
+
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router';
 
