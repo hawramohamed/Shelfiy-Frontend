@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import { Link } from 'react-router-dom';
 
 function SupplierList() {
   const { user } = useContext(UserContext);
@@ -32,6 +33,13 @@ function SupplierList() {
   return (
     <div className="supplier-list">
       <h1>Supplier List</h1>
+
+      {user && (
+        <Link to={`/products/${user._id}/suppliers/new`}>
+          <button>Create New Supplier</button>
+        </Link>
+      )}
+
       {suppliers.length === 0 ? (
         <p>No suppliers found.</p>
       ) : (

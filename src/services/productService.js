@@ -1,4 +1,4 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`;
+const BASE_URL = import.meta.env.VITE_BACK_END_SERVER_URL;
 
 const getAllProducts = async () => {
   try {
@@ -22,7 +22,7 @@ const addProduct = async (userId, productData) => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify({...productData, suppliers: [] })
+      body: JSON.stringify({ ...productData, suppliers: [] })
     });
     const data = await res.json();
     if (data.err) throw new Error(data.err);
@@ -31,7 +31,6 @@ const addProduct = async (userId, productData) => {
     console.error("Error adding product:", err);
     throw err;
   }
-
 };
 
 const getProduct = async (userId, productId) => {
@@ -47,20 +46,6 @@ const getProduct = async (userId, productId) => {
     throw err;
   }
 };
-
-// const editProduct = async (userId, productId) => {
-//   try {
-//     const res = await fetch(`${BASE_URL}/${userId}/${productId}/edit`, {
-//       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-//     });
-//     const data = await res.json();
-//     if (data.err) throw new Error(data.err);
-//     return data;
-//   } catch (err) {
-//     console.error("Error editing product:", err);
-//     throw err;
-//   }
-// };
 
 const updateProduct = async (userId, productId, productData) => {
   try {
@@ -95,7 +80,10 @@ const deleteProduct = async (userId, productId) => {
   }
 };
 
-
 export {
-  getAllProducts, addProduct, getProduct, editProduct, updateProduct, deleteProduct
+  getAllProducts,
+  addProduct,
+  getProduct,
+  updateProduct,
+  deleteProduct
 };

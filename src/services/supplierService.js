@@ -1,8 +1,8 @@
-const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}/product`;
+const BASE_URL = `${import.meta.env.VITE_BACK_END_SERVER_URL}`;
 
 const getAllSuppliers = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/`, {
+    const res = await fetch(`${BASE_URL}/products/${productId}/suppliers`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -17,7 +17,7 @@ const getAllSuppliers = async () => {
 
 const addSupplier = async (userId, productId, supplierData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/suppliers`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/suppliers/new`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const addSupplier = async (userId, productId, supplierData) => {
 
 const getSupplier = async (userId, productId, supplierId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/${supplierId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/suppliers/${supplierId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -52,7 +52,7 @@ const getSupplier = async (userId, productId, supplierId) => {
 
 const editSupplier = async (userId, productId, supplierId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/${supplierId}/edit`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/suppliers/${supplierId}/edit`, {
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
     const data = await res.json();
@@ -66,7 +66,7 @@ const editSupplier = async (userId, productId, supplierId) => {
 
 const updateSupplier = async (userId, productId, supplierId, supplierData) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/${supplierId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/suppliers/${supplierId}`, {
       method: 'PUT',
       headers: { 
         'Content-Type': 'application/json',
@@ -85,7 +85,7 @@ const updateSupplier = async (userId, productId, supplierId, supplierData) => {
 
 const deleteSupplier = async (userId, productId, supplierId) => {
   try {
-    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/${supplierId}`, {
+    const res = await fetch(`${BASE_URL}/${userId}/products/${productId}/suppliers/${supplierId}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
     });
