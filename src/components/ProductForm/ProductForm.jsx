@@ -3,12 +3,20 @@ import { addProduct, updateProduct, getProduct } from '../../services/productSer
 import { useParams, useNavigate } from 'react-router';
 
 function ProductForm({ userId }) {
-  const { productId } = useParams(); // grab productId from URL
+  const { productId } = useParams();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({ name: "", price: 0, stock: 0, description: "" });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",   // ✅ empty string so placeholder shows
+    stock: "",   // ✅ empty string so placeholder shows
+    description: "",
+    suppliers: []
+  });
+
+  const [supplierInput, setSupplierInput] = useState({ name: "", contact: "", address: "" });
   const [error, setError] = useState("");
 
-  // If editing, fetch product details to prefill form
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -27,56 +35,113 @@ function ProductForm({ userId }) {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleSupplierChange = (e) => {
+    setSupplierInput({ ...supplierInput, [e.target.name]: e.target.value });
+  };
+
+  const addSupplierToList = () => {
+    if (!supplierInput.name) return; // require name
+    setFormData({
+      ...formData,
+      suppliers: [...formData.suppliers, supplierInput]
+    });
+    setSupplierInput({ name: "", contact: "", address: "" }); // reset input
+  };
+
+  const removeSupplier = (idx) => {
+    setFormData({
+      ...formData,
+      suppliers: formData.suppliers.filter((_, i) => i !== idx)
+    });
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (productId) {
         await updateProduct(userId, productId, formData);
       } else {
-        await addProduct(userId, {...formData, suppliers: []});
+        await addProduct(userId, formData);
       }
       navigate("/products");
     } catch (err) {
       console.error("Save failed:", err);
       setError(err.message);
-
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      {error && <p style={{ color: "red" }}>{error}</p>}
-      <input
-        name="name"
-        placeholder="Name"
-        value={formData.name}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="price"
-        type="number"
-        placeholder="Price"
-        value={formData.price}
-        onChange={handleChange}
-        required
-      />
-      <input
-        name="stock"
-        type="number"
-        placeholder="Stock"
-        value={formData.stock}
-        onChange={handleChange}
-        required
-      />
-      <textarea
-        name="description"
-        placeholder="Description"
-        value={formData.description}
-        onChange={handleChange}
-      />
-      <button type="submit">{productId ? "Update Product" : "Add Product"}</button>
-    </form>
+    <>
+      <h2>{productId ? "Edit Product" : "Add New Product"}</h2>
+
+      <form onSubmit={handleSubmit}>
+        {error && <p style={{ color: "red" }}>{error}</p>}
+
+        <input
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="price"
+          type="number"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+          required
+        />
+        <input
+          name="stock"
+          type="number"
+          placeholder="Stock"
+          value={formData.stock}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+          name="description"
+          placeholder="Description"
+          value={formData.description}
+          onChange={handleChange}
+        />
+
+        <h3>Add Supplier</h3>
+        <input
+          name="name"
+          placeholder="Supplier Name"
+          value={supplierInput.name}
+          onChange={handleSupplierChange}
+        />
+        <input
+          name="contact"
+          placeholder="Contact"
+          value={supplierInput.contact}
+          onChange={handleSupplierChange}
+        />
+        <input
+          name="address"
+          placeholder="Address"
+          value={supplierInput.address}
+          onChange={handleSupplierChange}
+        />
+        <button type="button" onClick={addSupplierToList}>Add Supplier</button>
+
+        {formData.suppliers.length > 0 && (
+          <ul>
+            {formData.suppliers.map((s, idx) => (
+              <li key={idx}>
+                {s.name} ({s.contact})
+                <button type="button" onClick={() => removeSupplier(idx)}>Remove</button>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        <button type="submit">{productId ? "Update Product" : "Add Product"}</button>
+      </form>
+    </>
   );
 }
 
