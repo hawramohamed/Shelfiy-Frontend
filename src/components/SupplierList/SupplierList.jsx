@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
 import { getAllSuppliers, updateSupplier, deleteSupplier } from '../../services/supplierService';
+import './SupplierList.css'
 
 function SupplierList() {
   const { user } = useContext(UserContext);

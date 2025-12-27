@@ -1,0 +1,91 @@
+.supplier-list {
+  max-width: 900px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  font-family: 'Segoe UI', sans-serif;
+  color: #333;
+}
+
+.supplier-list h1 {
+  text-align: center;
+  font-size: 2rem;
+  color: #007bff;
+  margin-bottom: 1.5rem;
+}
+
+/* Empty state & messages */
+.supplier-list p {
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 1rem;
+}
+
+.supplier-list p[style] {
+  color: red; /* error message */
+}
+
+/* Table styling */
+.supplier-list table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.supplier-list th,
+.supplier-list td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.supplier-list th {
+  background: #007bff;
+  color: white;
+  font-weight: 600;
+}
+
+.supplier-list tr:nth-child(even) {
+  background: #f2f2f2;
+}
+
+.supplier-list tr:hover {
+  background: #e9ecef;
+}
+
+/* Action buttons */
+.supplier-list td button {
+  margin-right: 0.5rem;
+  padding: 0.4rem 0.8rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+/* Edit button */
+.supplier-list td a {
+  text-decoration: none; /* remove underline from Link */
+}
+
+.supplier-list td a button {
+  background: #ffc107;
+  color: #212529;
+}
+
+.supplier-list td a button:hover {
+  background: #e0a800;
+}
+
+/* Delete button */
+.supplier-list td button:last-of-type {
+  background: #dc3545;
+  color: white;
+}
+
+.supplier-list td button:last-of-type:hover {
+  background: #c82333;
+}

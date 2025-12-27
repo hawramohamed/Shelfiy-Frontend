@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { addSupplier, updateSupplier, getSupplier } from '../../services/supplierService';
 import { useParams, useNavigate } from 'react-router';
+import './SupplierForm.css'
 
 function SupplierForm({ userId }) {
   const { productId, supplierId } = useParams(); // grab IDs from URL

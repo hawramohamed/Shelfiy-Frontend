@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
 import { getAllProducts, deleteProduct } from '../../services/productService';
+import './ProductList.css'
 
 function ProductList() {
   const { user } = useContext(UserContext);

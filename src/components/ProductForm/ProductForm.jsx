@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from 'react';
 import { addProduct, updateProduct, getProduct } from '../../services/productService';
 import { useParams, useNavigate } from 'react-router';
 import { UserContext } from '../../contexts/UserContext';
+import './ProductForm.css'
 
 function ProductForm({ userId }) {
 
