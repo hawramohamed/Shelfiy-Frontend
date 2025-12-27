@@ -60,7 +60,9 @@ function ProductList() {
               <th>Stock</th>
               <th>Description</th>
               <th>Suppliers</th>
+              {user.role === "admin" && (
               <th>Actions</th>
+              )}
             </tr>
           </thead>
           <tbody>

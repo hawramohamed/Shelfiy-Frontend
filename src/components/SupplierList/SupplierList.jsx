@@ -52,7 +52,9 @@ function SupplierList() {
               <th>Name</th>
               <th>Contact</th>
               <th>Address</th>
+              {user.role === "admin" && (
               <th>Actions</th>
+              )}
             </tr>
           </thead>
           <tbody>
